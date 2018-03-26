@@ -1,102 +1,75 @@
 package com.example.divyanshu.vehicleregistry;
 
-import java.util.Date;
 
-/**
- * Created by divyanshu on 11/3/18.
- */
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.security.acl.Owner;
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Vehicle {
 
-    private String rcValidity;
-    private String insuranceValidity;
-    private String pollutionValidity;
-    private String owner;
-    private String registered_no;
-    private String model_no;
-    private String chassis_no;
-    private String engine_no;
-    private Date date_of_registration;
-    private String fuel_type;
 
-    public String getRcValidity() {
-        return rcValidity;
+    private String vin;
+    private VehicleDetails vehicleDetails;
+   /* private VehicleStatus vehicleStatus;
+    private Owner owner;
+    private Manufacturer manufacturer;
+    private List<VehicleDealer> vehicleDealers;
+    private List<VehicleTransferLogEntry> vehicleTransferLogEntries;
+*/
+
+    public String getVin() {
+        return vin;
     }
 
-    public String getInsuranceValidity() {
-        return insuranceValidity;
+    public void setVin(String vin) {
+        this.vin = vin;
     }
 
-    public String getPollutionValidity() {
-        return pollutionValidity;
+    public VehicleDetails getVehicleDetails() {
+        return vehicleDetails;
     }
 
-    public String getOwner() {
+    public void setVehicleDetails(VehicleDetails vehicleDetails) {
+        this.vehicleDetails = vehicleDetails;
+    }
+
+    /*public VehicleStatus getVehicleStatus() {
+        return vehicleStatus;
+    }
+
+    public void setVehicleStatus(VehicleStatus vehicleStatus) {
+        this.vehicleStatus = vehicleStatus;
+    }
+
+    public Owner getOwner() {
         return owner;
     }
 
-    public String getRegistered_no() {
-        return registered_no;
-    }
-
-    public String getModel_no() {
-        return model_no;
-    }
-
-    public String getChassis_no() {
-        return chassis_no;
-    }
-
-    public String getEngine_no() {
-        return engine_no;
-    }
-
-
-    public Date getDate_of_registration() {
-        return date_of_registration;
-    }
-
-    public String getFuel_type() {
-        return fuel_type;
-    }
-
-    public void setRcValidity(String rcValidity) {
-        this.rcValidity = rcValidity;
-    }
-
-    public void setInsuranceValidity(String insuranceValidity) {
-        this.insuranceValidity = insuranceValidity;
-    }
-
-    public void setPollutionValidity(String pollutionValidity) {
-        this.pollutionValidity = pollutionValidity;
-    }
-
-    public void setOwner(String owner) {
+    public void setOwner(Owner owner) {
         this.owner = owner;
     }
 
-    public void setRegistered_no(String registered_no) {
-        this.registered_no = registered_no;
+    public List<VehicleTransferLogEntry> getVehicleTransferLogEntries() {
+        return vehicleTransferLogEntries;
     }
 
-    public void setModel_no(String model_no) {
-        this.model_no = model_no;
+    public void setVehicleTransferLogEntries(List<VehicleTransferLogEntry> vehicleTransferLogEntries) {
+        this.vehicleTransferLogEntries = vehicleTransferLogEntries;
     }
 
-    public void setChassis_no(String chassis_no) {
-        this.chassis_no = chassis_no;
+    public Manufacturer getManufacturer() {
+        return manufacturer;
     }
 
-    public void setEngine_no(String engine_no) {
-        this.engine_no = engine_no;
+    public void setManufacturer(Manufacturer manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
-    public void setDate_of_registration(Date date_of_registration) {
-        this.date_of_registration = date_of_registration;
+    public List<VehicleDealer> getVehicleDealers() {
+        return vehicleDealers;
     }
 
-    public void setFuel_type(String fuel_type) {
-        this.fuel_type = fuel_type;
-    }
+    public void setVehicleDealers(List<VehicleDealer> vehicleDealers) {
+        this.vehicleDealers = vehicleDealers;
+    }*/
 }

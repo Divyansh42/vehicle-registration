@@ -1,26 +1,30 @@
 package com.example.divyanshu.vehicleregistry;
 
-import android.text.TextUtils;
 import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by divyanshu on 21/3/18.
@@ -42,56 +46,24 @@ public class Utils {
     }
 
 
-    /**
-     * Make an HTTP request to the given URL and return a String as the response.
-     */
-    public static String makeHttpRequest(URL url, String request, Vehicle vehicle) throws IOException {
+    public static String makeHttpRequest(URL url) throws IOException {
         String jsonResponse = "";
-
-        // If the URL is null, then return early.
-        if (url == null) {
-            return jsonResponse;
-        }
-
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000/* milliseconds */);
-            urlConnection.setRequestProperty("Content-type", "application/json");
-            urlConnection.setConnectTimeout(15000 /*milliseconds*/ );
-            urlConnection.setRequestMethod(request);
-            JSONObject postData = new JSONObject();
-            if(vehicle != null){
-                try {
-                    postData.put("owner", vehicle.getOwner());
-                    postData.put("registeredNo",vehicle.getRegistered_no());
-                    postData.put("modelNo", vehicle.getModel_no());
-                    postData.put("chassisNo", vehicle.getChassis_no());
-                    postData.put("engineNo", vehicle.getEngine_no());
-                    postData.put("dateOfRegistration", vehicle.getDate_of_registration().getTime());
-                    postData.put("fuelType", vehicle.getFuel_type());
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
-                writer.write(postData.toString());
-                writer.flush();
-            }
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setReadTimeout(10000);
+            urlConnection.setConnectTimeout(15000);
             urlConnection.connect();
-
-            // If the request was successful (response code 200),
-            // then read the input stream and parse the response.
             if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
-                Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
+                Log.e(LOG_TAG, "Response code : " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the user JSON results.", e);
+            Log.e(LOG_TAG, "IOException occured");
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -103,11 +75,13 @@ public class Utils {
         return jsonResponse;
     }
 
+
+
     /**
      * Convert the {@link InputStream} into a String which contains the
      * whole JSON response from the server.
      */
-    private static String readFromStream(InputStream inputStream) throws IOException {
+    public static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
         if (inputStream != null) {
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
@@ -124,11 +98,11 @@ public class Utils {
 
     public static List<Vehicle> extractVehiclesFromJson(String vehiclesJSON) {
         // If the JSON string is empty or null, then return early.
-        if (TextUtils.isEmpty(vehiclesJSON)) {
+        /*if (TextUtils.isEmpty(vehiclesJSON)) {
             return null;
         }
 
-        ArrayList<Vehicle> userList  = new ArrayList<>();
+        ArrayList<Vehicle> vehicleList  = new ArrayList<>();
         try {
             JSONArray vehicles = new JSONArray(vehiclesJSON);
 
@@ -136,17 +110,30 @@ public class Utils {
             for(int i = 0; i < vehicles.length(); i++) {
                 // Extract out the users List
                 JSONObject vehicleJSON = vehicles.getJSONObject(i);
-                userList.add(extractVehicleFromUserJSON(vehicleJSON));
+                vehicleList.add(extractVehicleFromVehicleJSON(vehicleJSON));
             }
         } catch (JSONException e) {
-            Log.e(LOG_TAG, "Problem parsing user JSON", e);
+            Log.e(LOG_TAG, "Problem parsing vehicle JSON", e);
         }
-        return userList;
-    }
+        return vehicleList;*/
 
-    private static Vehicle extractVehicleFromUserJSON(JSONObject vehicleJSON){
-        Vehicle newVehicle = new Vehicle();
+
+        List<Vehicle> vehicles = null;
         try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            vehicles = Arrays.asList(objectMapper.readValue(vehiclesJSON, Vehicle[].class));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return vehicles;
+
+    }
+/*
+
+    private static Vehicle extractVehicleFromVehicleJSON(JSONObject vehicleJSON) {
+        Vehicle newVehicle = new Vehicle();
+        */
+/*try {
             String rcValidity = vehicleJSON.getString("rcValidity");
             String insuranceValidity = vehicleJSON.getString("insuranceValidity");
             String pollutionValidity = vehicleJSON.getString("pollutionValidity");
@@ -170,13 +157,44 @@ public class Utils {
             newVehicle.setDate_of_registration(dateOfRegistration);
             newVehicle.setFuel_type(fuelType);
         }catch (JSONException e) {
-            Log.e(LOG_TAG, "Problem parsing the user", e);
-        }
-        return newVehicle;
+            Log.e(LOG_TAG, "Problem parsing the vehicle", e);
 
+        }*//*
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        OkHttpClient client = builder.build();
+
+        String ur;;
+        String url;
+        HttpUrl.Builder urlBuilder
+                = HttpUrl.parse(Constants.APP_URL +  "/queries/selectAllCarsByDealer").newBuilder();
+        urlBuilder.addQueryParameter("manufacturer", "resource:com.bf.vrp.members.Manufacturer#");
+
+
+        url = urlBuilder.build().toString();
+
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Call call = client.newCall(request);
+        Response response = null;
+        Vehicle vehicle = null;
+        try {
+            response = call.execute();
+            System.out.println();
+            String responseBody = response.body().string();
+            ObjectMapper objectMapper = new ObjectMapper();
+            vehicle = (objectMapper.readValue(responseBody, Vehicle.class));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return vehicle;
     }
 
 
+
+*/
 
 
     public static Date getDateFromString (String dateString){

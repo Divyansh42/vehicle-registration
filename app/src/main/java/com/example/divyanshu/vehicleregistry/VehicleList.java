@@ -24,10 +24,21 @@ public class VehicleList extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.car_list);
         VehicleAsyncTask asyncTask = new VehicleAsyncTask();
-        asyncTask.execute(createUrl(APP_URL + "/users/"));
+        asyncTask.execute(createUrl(APP_URL + "/rest/user/8523/vehicle"));
+        final ListView vehicleList = (ListView) findViewById(R.id.list);
+        vehicleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
+                Intent vehicleInfo = new Intent(VehicleList.this, UserActivity.class);
+                Vehicle vehicle = (Vehicle) vehicleList.getItemAtPosition(position);
+                vehicleInfo.putExtra("vehicleVin", vehicle.getVin());
+                startActivity(vehicleInfo);
+            }
+        });
     }
 
     private void updateUi(String result){
+        System.out.println(result);
         List<Vehicle> vehicles = new ArrayList<>();
         try {
             vehicles =  Utils.extractVehiclesFromJson(result);
@@ -35,16 +46,9 @@ public class VehicleList extends AppCompatActivity{
             e.printStackTrace();
         }
         VehicleAdapter adapter = new VehicleAdapter(this, 0, vehicles );
-        ListView listView = (ListView) findViewById(R.id.list);
+        ListView vehicleList = (ListView) findViewById(R.id.list);
+        vehicleList.setAdapter(adapter);
 
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
-                Intent vehicleInfo = new Intent(VehicleList.this, UserActivity.class);
-                startActivity(vehicleInfo);
-            }
-        });
     }
 
 
@@ -57,7 +61,7 @@ public class VehicleList extends AppCompatActivity{
             }
             String result = null;
             try {
-                result = Utils.makeHttpRequest (urls[0], "GET", null);
+                result = Utils.makeHttpRequest(urls[0]);
             } catch (IOException e) {
                 e.printStackTrace();
             }

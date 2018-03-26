@@ -6,7 +6,7 @@ package com.example.divyanshu.vehicleregistry;
 
 public class Constants {
 
-    public static final String APP_URL = "prclub.tech";
+    public static final String APP_URL = "http://192.168.1.15:8080";
 
 
 }

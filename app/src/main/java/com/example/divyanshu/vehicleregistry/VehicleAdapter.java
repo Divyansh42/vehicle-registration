@@ -31,11 +31,11 @@ public class VehicleAdapter extends ArrayAdapter<Vehicle> {
 
         Vehicle currentVehicle = getItem(position);
 
-        TextView vehicleModelView = itemListView.findViewById(R.id.vehicle_model);
-        vehicleModelView.setText(currentVehicle.getModel_no());
+        TextView vehicleModelView = itemListView.findViewById(R.id.vin);
+        vehicleModelView.setText(currentVehicle.getVin());
 
-        TextView vehicleNoView = itemListView.findViewById(R.id.vehicle_no);
-        vehicleNoView.setText(currentVehicle.getRegistered_no());
+        /*TextView vehicleNoView = itemListView.findViewById(R.id.vehicle_no);
+        vehicleNoView.setText(currentVehicle.getRegistered_no());*/
 
         return itemListView;
     }
