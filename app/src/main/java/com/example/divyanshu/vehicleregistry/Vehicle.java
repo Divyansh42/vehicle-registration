@@ -9,6 +9,7 @@ public class Vehicle {
 
 
     private String vin;
+    private String manufacturer;
     private VehicleDetails vehicleDetails;
    /* private VehicleStatus vehicleStatus;
     private Owner owner;
@@ -23,6 +24,14 @@ public class Vehicle {
 
     public void setVin(String vin) {
         this.vin = vin;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
     public VehicleDetails getVehicleDetails() {

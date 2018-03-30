@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.io.IOException;
@@ -19,12 +18,22 @@ import static com.example.divyanshu.vehicleregistry.Utils.createUrl;
 
 public class VehicleList extends AppCompatActivity{
 
+    int aadharNo;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.car_list);
+        setContentView(R.layout.vehicle_list);
+
+        Intent intentThatStartedThisActivity = getIntent();
+
+        if (intentThatStartedThisActivity != null) {
+            if (intentThatStartedThisActivity.hasExtra("aadharNo")) {
+                aadharNo = intentThatStartedThisActivity.getIntExtra("aadharNo", 0);
+            }
+        }
         VehicleAsyncTask asyncTask = new VehicleAsyncTask();
-        asyncTask.execute(createUrl(APP_URL + "/rest/user/8523/vehicle"));
+        asyncTask.execute(createUrl(APP_URL + "/rest/user/" + aadharNo + "/vehicle"));
         final ListView vehicleList = (ListView) findViewById(R.id.list);
         vehicleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -32,6 +41,7 @@ public class VehicleList extends AppCompatActivity{
                 Intent vehicleInfo = new Intent(VehicleList.this, UserActivity.class);
                 Vehicle vehicle = (Vehicle) vehicleList.getItemAtPosition(position);
                 vehicleInfo.putExtra("vehicleVin", vehicle.getVin());
+                vehicleInfo.putExtra("aadharNo", aadharNo);
                 startActivity(vehicleInfo);
             }
         });

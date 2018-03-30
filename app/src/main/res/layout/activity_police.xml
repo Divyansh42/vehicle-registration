@@ -36,17 +36,19 @@
             android:paddingLeft="15dp"
             android:padding="5dp"
             android:hint="UP14H5400"
+
             android:inputType="text"
             android:background="@drawable/back"/>
 
         <Button
+            android:id="@+id/go_button"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="4dp"
             android:layout_weight="0.25"
-            android:background="#3F51B5"
-            android:textColor="#FAFAFA"
-            android:textSize="15sp"
+            android:background="@drawable/button_bg"
+            android:textColor="@color/grey"
+            android:textSize="17sp"
             android:text="GO!"/>
     </LinearLayout>
 
@@ -359,39 +361,39 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="35dp"
-        android:background="#3F51B5"
+        android:background="@color/grey"
         android:text="Create Accidental"
         android:textAllCaps="false"
-        android:textColor="#FAFAFA"
+        android:textColor="@color/yellow"
         app:layout_constraintTop_toBottomOf="@+id/calendar"
-        android:textSize="15sp" />
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="38dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:background="#3F51B5"
+        android:background="@color/grey"
         android:text="Create Theft Report"
         android:textAllCaps="false"
-        android:textColor="#FAFAFA"
+        android:textColor="@color/yellow"
         app:layout_constraintTop_toBottomOf="@+id/button1"
-        android:textSize="15sp" />
+        android:textSize="16sp" />
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="38dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:background="#3F51B5"
+        android:background="@color/grey"
         android:text="Challan History"
         android:textAllCaps="false"
-        android:textColor="#FAFAFA"
+        android:textColor="@color/yellow"
         app:layout_constraintTop_toBottomOf="@+id/button2"
-        android:textSize="15sp" />
+        android:textSize="16sp" />
 
 
 

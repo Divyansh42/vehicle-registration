@@ -97,26 +97,6 @@ public class Utils {
 
 
     public static List<Vehicle> extractVehiclesFromJson(String vehiclesJSON) {
-        // If the JSON string is empty or null, then return early.
-        /*if (TextUtils.isEmpty(vehiclesJSON)) {
-            return null;
-        }
-
-        ArrayList<Vehicle> vehicleList  = new ArrayList<>();
-        try {
-            JSONArray vehicles = new JSONArray(vehiclesJSON);
-
-
-            for(int i = 0; i < vehicles.length(); i++) {
-                // Extract out the users List
-                JSONObject vehicleJSON = vehicles.getJSONObject(i);
-                vehicleList.add(extractVehicleFromVehicleJSON(vehicleJSON));
-            }
-        } catch (JSONException e) {
-            Log.e(LOG_TAG, "Problem parsing vehicle JSON", e);
-        }
-        return vehicleList;*/
-
 
         List<Vehicle> vehicles = null;
         try {
@@ -128,74 +108,6 @@ public class Utils {
         return vehicles;
 
     }
-/*
-
-    private static Vehicle extractVehicleFromVehicleJSON(JSONObject vehicleJSON) {
-        Vehicle newVehicle = new Vehicle();
-        */
-/*try {
-            String rcValidity = vehicleJSON.getString("rcValidity");
-            String insuranceValidity = vehicleJSON.getString("insuranceValidity");
-            String pollutionValidity = vehicleJSON.getString("pollutionValidity");
-            String owner = vehicleJSON.getString("owner");
-            String registeredNo = vehicleJSON.getString("registeredNo");
-            String modelNo = vehicleJSON.getString("modelNo");
-            String chassisNo = vehicleJSON.getString("chassisNo");
-            String engineNo = vehicleJSON.getString("engineNo");
-            Date dateOfRegistration = null;
-            dateOfRegistration = getDateFromString(vehicleJSON.getString("dateOfRegistration"));
-            String fuelType = vehicleJSON.getString("fuelType");
-
-            newVehicle.setRcValidity(rcValidity);
-            newVehicle.setInsuranceValidity(insuranceValidity);
-            newVehicle.setPollutionValidity(pollutionValidity);
-            newVehicle.setOwner(owner);
-            newVehicle.setRegistered_no(registeredNo);
-            newVehicle.setModel_no(modelNo);
-            newVehicle.setChassis_no(chassisNo);
-            newVehicle.setEngine_no(engineNo);
-            newVehicle.setDate_of_registration(dateOfRegistration);
-            newVehicle.setFuel_type(fuelType);
-        }catch (JSONException e) {
-            Log.e(LOG_TAG, "Problem parsing the vehicle", e);
-
-        }*//*
-
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        OkHttpClient client = builder.build();
-
-        String ur;;
-        String url;
-        HttpUrl.Builder urlBuilder
-                = HttpUrl.parse(Constants.APP_URL +  "/queries/selectAllCarsByDealer").newBuilder();
-        urlBuilder.addQueryParameter("manufacturer", "resource:com.bf.vrp.members.Manufacturer#");
-
-
-        url = urlBuilder.build().toString();
-
-
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-        Call call = client.newCall(request);
-        Response response = null;
-        Vehicle vehicle = null;
-        try {
-            response = call.execute();
-            System.out.println();
-            String responseBody = response.body().string();
-            ObjectMapper objectMapper = new ObjectMapper();
-            vehicle = (objectMapper.readValue(responseBody, Vehicle.class));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return vehicle;
-    }
-
-
-
-*/
-
 
     public static Date getDateFromString (String dateString){
         Date date = null;

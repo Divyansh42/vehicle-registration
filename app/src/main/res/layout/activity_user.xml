@@ -32,7 +32,7 @@
         android:id="@+id/image_view"
         android:layout_width="100dp"
         android:layout_height="110dp"
-        android:src="@drawable/tata"
+        android:src="@drawable/marutisuzuki"
         app:layout_constraintStart_toStartOf="@id/constraint_layout"
         app:layout_constraintTop_toTopOf="@+id/constraint_layout"
         android:layout_margin="30sp"
@@ -43,7 +43,7 @@
         android:id="@+id/rc_validity_icon"
         android:layout_width="22dp"
         android:layout_height="22dp"
-        android:src="@drawable/green_tick"
+        android:src="@drawable/orange_tick"
         app:layout_constraintStart_toEndOf="@id/image_view"
         app:layout_constraintTop_toTopOf="@id/image_view"
         android:layout_marginLeft="20sp"
@@ -58,7 +58,7 @@
         app:layout_constraintStart_toEndOf="@id/rc_validity_icon"
         app:layout_constraintTop_toTopOf="@+id/rc_validity_icon"
         android:layout_marginLeft="12dp"
-        android:textSize="18sp"/>
+        android:textSize="16sp"/>
 
     <ImageView
         android:id="@+id/insurance_validity_icon"
@@ -101,7 +101,7 @@
         app:layout_constraintStart_toEndOf="@id/pollution_validity_icon"
         app:layout_constraintTop_toTopOf="@+id/pollution_validity_icon"
         android:layout_marginLeft="12dp"
-        android:textSize="17sp"/>
+        android:textSize="16sp"/>
 
     <ImageView
         android:id="@+id/owner_image"
@@ -223,6 +223,7 @@
         android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@id/tool_image"
         app:layout_constraintTop_toTopOf="@id/tool_image"/>
+
     <TextView
         android:id="@+id/chassis_no"
         android:layout_width="179dp"
@@ -230,11 +231,10 @@
         android:layout_gravity="end"
         android:text="MAXK243XXX"
         android:textAlignment="viewEnd"
-        android:layout_marginRight="5dp"
-        app:layout_constraintEnd_toEndOf="@id/constraint_layout"
-        app:layout_constraintTop_toTopOf="@id/tool_image"
         android:textColor="#000000"
-        android:textSize="17sp"/>
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="@id/constraint_layout"
+        app:layout_constraintTop_toTopOf="@id/tool_image" />
 
 
     <ImageView
@@ -362,43 +362,43 @@
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="38dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="35dp"
-        android:background="#3F51B5"
+        android:background="@color/grey"
         android:text="Generate Duplicate RC"
         android:textAllCaps="false"
-        android:textColor="#FAFAFA"
+        android:textColor="@color/yellow"
         app:layout_constraintTop_toBottomOf="@+id/fuel_image"
-        android:textSize="15sp" />
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="38dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:background="#3F51B5"
+        android:background="@color/grey"
         android:text="Renew Documents"
         android:textAllCaps="false"
-        android:textColor="#FAFAFA"
+        android:textColor="@color/yellow"
         app:layout_constraintTop_toBottomOf="@+id/button1"
-        android:textSize="15sp" />
+        android:textSize="16sp" />
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="38dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:background="#3F51B5"
+        android:background="@color/grey"
         android:text="Stolen? File it Here"
         android:textAllCaps="false"
-        android:textColor="#FAFAFA"
+        android:textColor="@color/yellow"
         app:layout_constraintTop_toBottomOf="@+id/button2"
-        android:textSize="15sp" />
+        android:textSize="16sp" />
 
 
 

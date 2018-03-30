@@ -17,49 +17,61 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserActivity extends AppCompatActivity {
+    ImageView rcValidityIcon;
+    TextView rcValidity;
+    ImageView insuranceValidityIcon;
+    TextView insuranceValidity;
+    ImageView pollutionValidityIcon;
+    TextView pollutionValidity;
+    TextView owner;
+    TextView registeredNo;
+    TextView modelNo;
+    TextView chassisNo;
+    TextView engineNo;
+    TextView dateOfRegistration;
+    TextView fuelType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        int  position;
         ListView list = (ListView) findViewById(R.id.list);
 
         Intent intentThatStartedThisActivity = getIntent();
 
         if (intentThatStartedThisActivity != null) {
             if (intentThatStartedThisActivity.hasExtra("vehicleVin")) {
-                position = intentThatStartedThisActivity.getIntExtra(Intent.EXTRA_TEXT, 0);
+                int aadharNo = intentThatStartedThisActivity.getIntExtra("aadharNo", 0);
                 String vin = intentThatStartedThisActivity.getStringExtra("vehicleVin");
                /* GifView.setVisibility(View.VISIBLE);
                 listView.setVisibility(View.GONE);*/
                 VehicleInfoAsyncTask vehicleInfoAsyncTask = new VehicleInfoAsyncTask();
-                vehicleInfoAsyncTask.execute(Utils.createUrl(Constants.APP_URL + "/rest/user/8523/vehicle/"+vin));
+                vehicleInfoAsyncTask.execute(Utils.createUrl(Constants.APP_URL + "/rest/user/" + aadharNo + "/vehicle/" +vin));
 
             }
         }
 
 
+        rcValidityIcon = (ImageView)findViewById(R.id.rc_validity_icon);
+        rcValidity = (TextView)findViewById(R.id.rc_validity);
 
-        ImageView rcValidityIcon = (ImageView)findViewById(R.id.rc_validity_icon);
-        TextView rcValidity = (TextView)findViewById(R.id.rc_validity);
+        insuranceValidityIcon = (ImageView) findViewById(R.id.insurance_validity_icon);
+        insuranceValidity = (TextView) findViewById(R.id.insurance_validity);
 
-        ImageView insuranceValidityIcon = (ImageView) findViewById(R.id.insurance_validity_icon);
-        TextView insuranceValidity = (TextView) findViewById(R.id.insurance_validity);
+        pollutionValidityIcon = (ImageView) findViewById(R.id.pollution_validity_icon);
+        pollutionValidity = (TextView) findViewById(R.id.pollution_validity);
 
-        ImageView pollutionValidityIcon = (ImageView) findViewById(R.id.pollution_validity_icon);
-        TextView pollutionValidity = (TextView) findViewById(R.id.pollution_validity);
-
-        TextView owner = (TextView) findViewById(R.id.owner_name);
-        TextView registeredNo = (TextView) findViewById(R.id.registered_no);
-        TextView modelNo = (TextView) findViewById(R.id.model_no);
-        TextView chassisNo = (TextView) findViewById(R.id.chassis_no);
-        TextView engineNo = (TextView) findViewById(R.id.engine_no);
-        TextView dateOfRegistration = (TextView) findViewById(R.id.date_of_registration);
-        TextView fuelType = (TextView) findViewById(R.id.fuel_type);
+        owner = (TextView) findViewById(R.id.owner_name);
+        registeredNo = (TextView) findViewById(R.id.registered_no);
+        modelNo = (TextView) findViewById(R.id.model_no);
+        chassisNo = (TextView) findViewById(R.id.chassis_no);
+        engineNo = (TextView) findViewById(R.id.engine_no);
+        dateOfRegistration = (TextView) findViewById(R.id.date_of_registration);
+        fuelType = (TextView) findViewById(R.id.fuel_type);
 
 
     }
@@ -84,6 +96,72 @@ public class UserActivity extends AppCompatActivity {
 
         TextView registeredNo = (TextView) findViewById(R.id.registered_no);
         registeredNo.setText(vehicle.getVin());
+
+        switch (Integer.parseInt(vehicle.getVehicleDetails().getRcValidity())){
+
+            case Constants.ACTIVE:
+
+                rcValidityIcon.setImageResource(R.drawable.green_tick);
+                rcValidity.setText(R.string.rc_valid);
+                break;
+
+            case Constants.EXPIRING_SOON:
+
+                rcValidityIcon.setImageResource((R.drawable.orange_tick));
+                rcValidity.setText(R.string.rc_expiring_soon);
+                break;
+
+            case Constants.EXPIRED:
+
+                rcValidityIcon.setImageResource(R.drawable.red_icon);
+                rcValidity.setText(R.string.rc_expired);
+                break;
+
+        }
+
+        switch (Integer.parseInt(vehicle.getVehicleDetails().getInsuranceValidity())){
+
+            case Constants.ACTIVE:
+
+                insuranceValidityIcon.setImageResource(R.drawable.green_tick);
+                insuranceValidity.setText(R.string.insurance_valid);
+                break;
+
+            case Constants.EXPIRING_SOON:
+
+                insuranceValidityIcon.setImageResource((R.drawable.orange_tick));
+                insuranceValidity.setText(R.string.insurance_expiring_soon);
+                break;
+
+            case Constants.EXPIRED:
+
+                insuranceValidityIcon.setImageResource(R.drawable.red_icon);
+                insuranceValidity.setText(R.string.insurance_expired);
+                break;
+
+        }
+
+        switch (Integer.parseInt(vehicle.getVehicleDetails().getPollutionValidity())){
+
+            case Constants.ACTIVE:
+
+                pollutionValidityIcon.setImageResource(R.drawable.green_tick);
+                pollutionValidity.setText(R.string.pollution_valid);
+                break;
+
+            case Constants.EXPIRING_SOON:
+
+                pollutionValidityIcon.setImageResource((R.drawable.orange_tick));
+                pollutionValidity.setText(R.string.pollution_expiring_soon);
+                break;
+
+            case Constants.EXPIRED:
+
+                pollutionValidityIcon.setImageResource(R.drawable.red_icon);
+                pollutionValidity.setText(R.string.pollution_expired);
+                break;
+
+        }
 
 
     }

@@ -3,24 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_image">
 
-    <!--<EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:paddingLeft="15dp"
-        android:padding="5dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:hint="Enter Login Id"
-        android:inputType="text"
-        android:background="@drawable/back"/>-->
+        android:text="Login To Your Account"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_marginTop="50dp"
+        android:textAlignment="center"/>
+
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="50dp"
         android:layout_gravity="center_horizontal"
         app:hintTextAppearance="@style/MyHintText">
 
@@ -28,7 +27,7 @@
             android:id="@+id/user_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="User id"
+            android:hint="User Id"
             android:theme="@style/MyEditText" />
 
     </android.support.design.widget.TextInputLayout>
@@ -52,16 +51,18 @@
 
     <Button
         android:id="@+id/police_login"
-        android:layout_width="100dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:background="#3F51B5"
+        android:background="@color/grey"
         android:layout_gravity="center_horizontal"
-        android:text="Proceed"
+        android:text="SIGN IN"
         android:textAllCaps="true"
-        android:textColor="#FAFAFA"
-        android:textSize="15sp" />
+        android:textColor="@color/yellow"
+        android:textSize="17sp" />
+
+
 
 </LinearLayout>

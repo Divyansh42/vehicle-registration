@@ -16,9 +16,12 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import static com.example.divyanshu.vehicleregistry.Constants.APP_URL;
 
@@ -26,6 +29,7 @@ public class OTPVerification extends AppCompatActivity {
 
 
     public static final String LOG_TAG = Utils.class.getSimpleName();
+    int aadharNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,13 @@ public class OTPVerification extends AppCompatActivity {
 
 
         Button otpVerifyButton = findViewById(R.id.verify_otp);
+        Intent intentThatStartedThisActivity = getIntent();
+
+        if (intentThatStartedThisActivity != null) {
+            if (intentThatStartedThisActivity.hasExtra("aadharNo")) {
+                aadharNo = intentThatStartedThisActivity.getIntExtra("aadharNo", 0);
+            }
+        }
 
 
         otpVerifyButton.setOnClickListener(new View.OnClickListener() {
@@ -51,46 +62,43 @@ public class OTPVerification extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String jsonResponse="";
-            String otp = params[0];
-            StringBuilder data = new StringBuilder();
-            int temp;
-            System.out.println(otp);
+
+            String data = " ";
             try {
-                URL url = new URL(APP_URL +"/rest/verifyOTP?p=user&otp=8521");
-                //String urlParams = "p =" + "police" + "&username=" + userId + "&password=" + password;
+                data = URLEncoder.encode("p", "UTF-8") + "=" + URLEncoder.encode("user", "UTF-8");
+                data += "&" + URLEncoder.encode("otp", "UTF-8") + "=" + URLEncoder.encode(params[0], "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                URL url = new URL(APP_URL +"/rest/verifyOTP");
 
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setRequestMethod("POST");
-                /*OutputStream os = httpURLConnection.getOutputStream();
-                os.write(urlParams.getBytes());
-                os.flush();
-                os.close();*/
-               /* DataOutputStream wr = new DataOutputStream( httpURLConnection.getOutputStream()) ;
-                wr.write(urlParams.getBytes());
+                OutputStreamWriter wr = new OutputStreamWriter(httpURLConnection.getOutputStream());
+                wr.write(data);
+                wr.flush();
                 wr.close();
-*/
                 BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-              /*  while ((temp = is.read()) != -1) {
-                    data.append((char) temp);
+                String line;
+                while ((line = in.readLine()) != null) {
+                    System.out.println(line);
                 }
-
-                is.close();
-                System.out.println(httpURLConnection.getErrorStream());
-
-*/              String x = in.readLine();
-                System.out.println(x);
+                System.out.println(httpURLConnection.getResponseCode());
+                in.close();
 
 
                 if (httpURLConnection.getResponseCode() == 200) {
 
-                    JSONObject jsonObject = new JSONObject(x);
+                    JSONObject jsonObject = new JSONObject(line);
                     Log.v(LOG_TAG, "json object created");
                     if(((String)jsonObject.get("result")).equals("valid")){
 
-                        Intent otpIntent = new Intent(OTPVerification.this, VehicleList.class);
-                        startActivity(otpIntent);
+                        Intent vehicleListIntent = new Intent(OTPVerification.this, VehicleList.class);
+                        vehicleListIntent.putExtra("aadharNo",aadharNo);
+                        startActivity(vehicleListIntent);
                     }
                     else{
 

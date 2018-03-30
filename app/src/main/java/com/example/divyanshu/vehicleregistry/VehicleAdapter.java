@@ -1,14 +1,13 @@
 package com.example.divyanshu.vehicleregistry;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,16 +25,23 @@ public class VehicleAdapter extends ArrayAdapter<Vehicle> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View itemListView = convertView;
         if (itemListView == null) {
-            itemListView = LayoutInflater.from(getContext()).inflate(R.layout.activity_car_adapter, parent, false);
+            itemListView = LayoutInflater.from(getContext()).inflate(R.layout.activity_vehicle_adapter, parent, false);
         }
 
         Vehicle currentVehicle = getItem(position);
+        String imageSource = currentVehicle.getManufacturer();
 
-        TextView vehicleModelView = itemListView.findViewById(R.id.vin);
-        vehicleModelView.setText(currentVehicle.getVin());
 
-        /*TextView vehicleNoView = itemListView.findViewById(R.id.vehicle_no);
-        vehicleNoView.setText(currentVehicle.getRegistered_no());*/
+        ImageView companyImage = itemListView.findViewById(R.id.company_logo);
+        Context context = companyImage.getContext();
+        int id = context.getResources().getIdentifier(imageSource, "drawable", context.getPackageName());
+        companyImage.setImageResource(id);
+
+        TextView vehicleNamePlateNoView = itemListView.findViewById(R.id.name_plate_no);
+        vehicleNamePlateNoView.setText(currentVehicle.getVin());
+
+        TextView vehicleModelView = itemListView.findViewById(R.id.model_no_in_list);
+        vehicleModelView.setText(currentVehicle.getVehicleDetails().getModelType());
 
         return itemListView;
     }

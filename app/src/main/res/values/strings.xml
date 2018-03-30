@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">Vehicle Registry</string>
     <string name="title_activity_user_login">User Login</string>
-
+    <string name="rc_valid">RC Valid</string>
+    <string name="rc_expiring_soon">RC Expiring Soon</string>
+    <string name="rc_expired">RC Expired</string>
+    <string name="insurance_valid">Insurance Valid</string>
+    <string name="insurance_expiring_soon">Insurance Expiring Soon</string>
+    <string name="insurance_expired">Insurance Expired</string>
+    <string name="pollution_valid">Pollution Valid</string>
+    <string name="pollution_expiring_soon">Pollution Expiring Soon</string>
+    <string name="pollution_expired">Pollution Expired</string>
 
 </resources>

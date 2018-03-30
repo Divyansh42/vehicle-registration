@@ -8,12 +8,39 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VehicleDetails {
 
+    private String rcValidity;
+    private String insuranceValidity;
+    private String pollutionValidity;
     private String make;
     private String modelType;
     private String color;
     private String vin;
     private String chassis;
     private String fuelType;
+
+    public String getRcValidity() {
+        return rcValidity;
+    }
+
+    public void setRcValidity(String rcValidity) {
+        this.rcValidity = rcValidity;
+    }
+
+    public String getInsuranceValidity() {
+        return insuranceValidity;
+    }
+
+    public void setInsuranceValidity(String insuranceValidity) {
+        this.insuranceValidity = insuranceValidity;
+    }
+
+    public String getPollutionValidity() {
+        return pollutionValidity;
+    }
+
+    public void setPollutionValidity(String pollutionValidity) {
+        this.pollutionValidity = pollutionValidity;
+    }
 
     public String getMake() {
         return make;

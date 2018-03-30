@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,11 +22,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLOutput;
 
 import static com.example.divyanshu.vehicleregistry.Constants.APP_URL;
 
@@ -36,7 +42,6 @@ public class PoliceLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.police_login_activity);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -67,42 +72,39 @@ public class PoliceLoginActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String jsonResponse="";
-            String userId = params[0];
-            String password = params[1];
-            StringBuilder data = new StringBuilder();
-            int temp;
-            System.out.println(userId + " " + password);
+            String data = " ";
             try {
-                URL url = new URL(APP_URL +"/rest/login?p=police&username=hfif&password=bgdjh");
-                //String urlParams = "p =" + "police" + "&username=" + userId + "&password=" + password;
+                data = URLEncoder.encode("p", "UTF-8") + "=" + URLEncoder.encode("police", "UTF-8");
+                data += "&" + URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(params[0], "UTF-8");
+                data += "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(params[1], "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+
+
+            try {
+                URL url = new URL(APP_URL +"/rest/login");
 
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setRequestMethod("POST");
-                /*OutputStream os = httpURLConnection.getOutputStream();
-                os.write(urlParams.getBytes());
-                os.flush();
-                os.close();*/
-               /* DataOutputStream wr = new DataOutputStream( httpURLConnection.getOutputStream()) ;
-                wr.write(urlParams.getBytes());
+                OutputStreamWriter wr = new OutputStreamWriter(httpURLConnection.getOutputStream());
+                wr.write(data);
+                wr.flush();
                 wr.close();
-*/
+
                BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
-              /*  while ((temp = is.read()) != -1) {
-                    data.append((char) temp);
+                String line;
+                while ((line = in.readLine()) != null) {
+                    System.out.println(line);
                 }
-
-                is.close();
-                System.out.println(httpURLConnection.getErrorStream());
-
-*/              String x = in.readLine();
-                System.out.println(x);
-
+                System.out.println(httpURLConnection.getResponseCode());
+                in.close();
 
                 if (httpURLConnection.getResponseCode() == 200) {
 
-                    JSONObject jsonObject = new JSONObject(x);
+                    JSONObject jsonObject = new JSONObject(line);
                     Log.v(LOG_TAG, "json object created");
                     if(((String)jsonObject.get("login")).equals("successful")){
 

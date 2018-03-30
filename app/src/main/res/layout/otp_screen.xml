@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background_image"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_marginRight="25dp"
         android:text="An OTP has been sent to your registered mobile number."
         android:textSize="16sp"
+        android:textColor="@color/white"
         android:textAlignment="center"
         android:layout_marginTop="100sp"
         android:maxLines="2"/>
@@ -22,22 +24,22 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_gravity="center"
-        android:hint=" Enter OTP"
+        android:hint=" Enter 4-digit OTP"
         android:theme="@style/MyEditText"
         android:inputType="number"
         />
 
+
     <Button
         android:id="@+id/verify_otp"
-        android:layout_width="90dp"
+        android:layout_width="270dp"
         android:layout_height="35dp"
-        android:layout_margin="60dp"
-        android:background="#3F51B5"
+        android:layout_marginTop="40dp"
+        android:background="#212121"
         android:layout_gravity="center_horizontal"
         android:text="VERIFY"
         android:textAllCaps="true"
-        android:textColor="#FAFAFA"
+        android:textColor="#CDDC39"
         android:textSize="15sp" />
-
 </LinearLayout>
 
